@@ -9,8 +9,9 @@ fixtures in this directory and fresh isolated consumers.
 PYTHONPATH=. python3 -m unittest discover -s tests -v
 ```
 
-Result: **5 tests passed**. Coverage includes supported citations, wrong-person
-scope, stale evidence, irrelevant fresh evidence, and unavailable sources.
+Result: **6 tests passed**. Coverage includes supported citations, wrong-person
+scope, stale evidence, irrelevant fresh evidence, unavailable sources, and the
+versioned loss-aware interop envelope.
 
 ## CLI behavior
 
@@ -58,11 +59,23 @@ Both consumers exercised:
 
 The source distribution also rebuilt successfully from its isolated archive.
 
+The installed cross-project consumer path was exercised with the built Context
+Integrity Lab, Agent Proof, and Forgeyard artifacts. A supported
+`context-integrity/v1` result was normalized and source-bound with Agent Proof,
+then composed by Forgeyard through `projection.status.ok` into
+`ready_for_review`. The normalized envelope retained scope digests and a
+citation count while excluding the answer text and raw person identifier.
+
+The `context-integrity/v1` envelope was also checked as a downstream contract:
+its supported result exposes explicit `ok=true`, `observed=true`,
+`partial=false`, `timed_out=false`, scope, citation-count, and empty unknowns;
+refusal results expose `ok=false` and a stable reason/unknown entry.
+
 ## Source and privacy checks
 
 The candidate source archive was built from a clean commit, verified against its
 sidecar, and extracted into a separate consumer directory before rerunning the
-five-case test suite and supported CLI example. A current-tree secret scan
+six-case test suite and supported CLI example. A current-tree secret scan
 reported no findings. These checks cover source structure, package behavior,
 and synthetic privacy boundaries; they do not claim production deployment,
 model accuracy, or external adoption.
