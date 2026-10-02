@@ -1,0 +1,35 @@
+[
+  {
+    "record_id": "calendar-001",
+    "source": "calendar",
+    "person_id": "person-a",
+    "project_id": "project-a",
+    "observed_at": "2026-10-01T10:00:00Z",
+    "window_start": "2026-10-01T09:00:00Z",
+    "window_end": "2026-10-01T11:00:00Z",
+    "text": "The launch review is scheduled for Friday and the API owner is Priya.",
+    "status": "available"
+  },
+  {
+    "record_id": "notes-001",
+    "source": "notes",
+    "person_id": "person-a",
+    "project_id": "project-a",
+    "observed_at": "2026-09-20T10:00:00Z",
+    "window_start": "2026-09-20T09:00:00Z",
+    "window_end": "2026-09-20T11:00:00Z",
+    "text": "Earlier notes mention a different launch date.",
+    "status": "available"
+  },
+  {
+    "record_id": "other-person-001",
+    "source": "calendar",
+    "person_id": "person-b",
+    "project_id": "project-a",
+    "observed_at": "2026-10-01T10:00:00Z",
+    "window_start": "2026-10-01T09:00:00Z",
+    "window_end": "2026-10-01T11:00:00Z",
+    "text": "The API owner is Marco.",
+    "status": "available"
+  }
+]

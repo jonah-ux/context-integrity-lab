@@ -1,0 +1,21 @@
+:root { color-scheme: dark; --ink: #eef4ff; --muted: #9eacc2; --line: #26364f; --panel: #111c2d; --bg: #08111f; --accent: #62d6b2; --amber: #e7b765; --red: #ff8d8d; }
+* { box-sizing: border-box; }
+body { margin: 0; background: radial-gradient(circle at 15% 0%, #142b46 0, var(--bg) 42%); color: var(--ink); font: 15px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, sans-serif; }
+.hero, main, footer { max-width: 1180px; margin: 0 auto; padding-left: 28px; padding-right: 28px; }
+.hero { padding-top: 66px; padding-bottom: 34px; }
+.eyebrow { color: var(--accent); font-size: 11px; letter-spacing: .16em; font-weight: 800; }
+h1 { margin: 8px 0 10px; font-size: clamp(38px, 6vw, 72px); letter-spacing: -.055em; line-height: .98; }
+h2 { margin: 4px 0 7px; font-size: 22px; letter-spacing: -.025em; }
+.lede { color: #c8d4e7; max-width: 720px; font-size: 19px; margin: 0 0 18px; }
+.pill-row { display: flex; flex-wrap: wrap; gap: 8px; }.pill { border: 1px solid #31506c; border-radius: 999px; padding: 5px 10px; color: #b9cbe0; font-size: 12px; }
+.grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 18px; padding-bottom: 30px; }.wide { grid-column: 1 / -1; }
+.panel { background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--line); border-radius: 18px; padding: 22px; box-shadow: 0 18px 50px #0002; }.panel-heading { display: flex; align-items: start; justify-content: space-between; gap: 20px; }
+.muted { color: var(--muted); margin-top: 0; }.metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px 0; }.metric { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }.metric span { display: block; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; font-size: 10px; }.metric strong { display: block; font-size: 26px; margin-top: 3px; }
+button { border: 0; border-radius: 10px; padding: 10px 14px; color: #06121b; background: var(--accent); font-weight: 800; cursor: pointer; } button:disabled { opacity: .55; cursor: wait; }
+label { display: block; color: var(--muted); font-size: 12px; margin: 13px 0; } input, select { display: block; width: 100%; border: 1px solid var(--line); border-radius: 9px; padding: 10px; margin-top: 5px; color: var(--ink); background: #0b1627; font: inherit; } .two-up { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.table-wrap { overflow-x: auto; } table { width: 100%; border-collapse: collapse; min-width: 680px; } th, td { text-align: left; padding: 11px 10px; border-bottom: 1px solid var(--line); } th { color: var(--muted); text-transform: uppercase; letter-spacing: .12em; font-size: 10px; } code { color: #b9cbe0; }
+.decision { display: inline-block; padding: 3px 8px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }.decision.created { color: #061c17; background: var(--accent); }.decision.matched { color: #10203b; background: #9eb9ff; }.decision.held { color: #2b1d08; background: var(--amber); }.decision.duplicate { color: #321313; background: var(--red); }
+.result { background: #091322; border: 1px solid var(--line); border-radius: 10px; padding: 13px; min-height: 170px; overflow: auto; white-space: pre-wrap; color: #c9d8ee; }.result.supported { border-color: #397d6c; }.result.stale, .result.uncertain, .result.unavailable { border-color: #80683e; }
+.audit-list { display: grid; gap: 8px; }.audit-item { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); }.audit-item strong, .audit-item small { display: block; }.audit-item small { color: var(--muted); }.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }.empty { color: var(--muted); padding: 10px 0; }
+footer { padding-bottom: 42px; color: var(--muted); font-size: 12px; } footer a { color: var(--accent); }
+@media (max-width: 800px) { .grid { grid-template-columns: 1fr; }.wide { grid-column: auto; }.metric-grid { grid-template-columns: repeat(2, 1fr); }.panel-heading { display: block; }.panel-heading button { margin-top: 10px; } }
