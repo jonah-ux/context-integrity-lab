@@ -1,0 +1,43 @@
+[
+  {
+    "source_record_id": "intake-001",
+    "event_id": "event-alpha",
+    "name": "Alex Rivera",
+    "email": "alex.rivera@example.test",
+    "status": "received"
+  },
+  {
+    "source_record_id": "intake-002",
+    "event_id": "event-beta",
+    "name": "Alex Rivera",
+    "email": "alex.rivera@example.test",
+    "status": "scheduled"
+  },
+  {
+    "source_record_id": "intake-003",
+    "event_id": "event-alpha",
+    "name": "Jordan Lee",
+    "email": "jordan.one@example.test",
+    "status": "received"
+  },
+  {
+    "source_record_id": "intake-004",
+    "event_id": "event-gamma",
+    "name": "Jordan Lee",
+    "email": "jordan.two@example.test",
+    "status": "received"
+  },
+  {
+    "source_record_id": "intake-005",
+    "event_id": "event-delta",
+    "name": "Jordan Lee",
+    "status": "received"
+  },
+  {
+    "source_record_id": "intake-004",
+    "event_id": "event-gamma",
+    "name": "Jordan Lee",
+    "email": "jordan.two@example.test",
+    "status": "received"
+  }
+]

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="260" viewBox="0 0 960 260" role="img" aria-labelledby="title desc">
+  <title id="title">Context Integrity Lab admission flow</title>
+  <desc id="desc">A question is scoped to a person and project, checked for freshness and source availability, and then produces a cited answer or an explicit refusal.</desc>
+  <rect width="960" height="260" rx="24" fill="#101827"/>
+  <text x="48" y="48" fill="#f8fafc" font-family="sans-serif" font-size="22" font-weight="700">Context Integrity Lab</text>
+  <text x="48" y="78" fill="#a7f3d0" font-family="sans-serif" font-size="15">Admission before assertion</text>
+  <g font-family="sans-serif" font-size="14">
+    <rect x="48" y="112" width="190" height="86" rx="14" fill="#1e293b" stroke="#60a5fa"/>
+    <text x="70" y="143" fill="#bfdbfe" font-weight="700">1 · Scope</text>
+    <text x="70" y="168" fill="#e2e8f0">person + project</text>
+    <text x="70" y="188" fill="#e2e8f0">must match</text>
+    <path d="M250 155h62" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="324" y="112" width="190" height="86" rx="14" fill="#1e293b" stroke="#fbbf24"/>
+    <text x="346" y="143" fill="#fde68a" font-weight="700">2 · Freshness</text>
+    <text x="346" y="168" fill="#e2e8f0">observed time</text>
+    <text x="346" y="188" fill="#e2e8f0">vs covered window</text>
+    <path d="M526 155h62" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="600" y="112" width="190" height="86" rx="14" fill="#1e293b" stroke="#34d399"/>
+    <text x="622" y="143" fill="#a7f3d0" font-weight="700">3 · Evidence</text>
+    <text x="622" y="168" fill="#e2e8f0">citation + outcome</text>
+    <text x="622" y="188" fill="#e2e8f0">or visible refusal</text>
+  </g>
+  <text x="48" y="232" fill="#cbd5e1" font-family="sans-serif" font-size="14">supported · uncertain · stale · unavailable</text>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0 0L8 4L0 8z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+</svg>

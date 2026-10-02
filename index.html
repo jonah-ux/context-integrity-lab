@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Context Integrity Lab</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="eyebrow">PORTFOLIO DEMONSTRATION · SYNTHETIC DATA</div>
+    <h1>Context Integrity Lab</h1>
+    <p class="lede">A small operations console that reconciles incoming records and refuses unsupported AI context before it becomes an answer.</p>
+    <div class="pill-row"><span class="pill">Python standard library</span><span class="pill">Structured JSON</span><span class="pill">Fail-closed states</span><span class="pill">No external services</span></div>
+  </header>
+
+  <main class="grid">
+    <section class="panel wide">
+      <div class="panel-heading"><div><div class="eyebrow">FLOW 01</div><h2>Record reconciliation</h2></div><button id="reconcile">Run reconciliation</button></div>
+      <p class="muted">The fixture contains repeat submissions, separate opportunities, an ambiguous name-only record, and a replayed source record.</p>
+      <div id="recon-summary" class="metric-grid"></div>
+      <div class="table-wrap"><table><thead><tr><th>Source</th><th>Person</th><th>Opportunity</th><th>Decision</th><th>Why</th></tr></thead><tbody id="decisions"></tbody></table></div>
+    </section>
+
+    <section class="panel">
+      <div class="eyebrow">FLOW 02</div><h2>Ask with context</h2>
+      <p class="muted">The gate checks scope, freshness, availability, and question support before returning cited context.</p>
+      <label>Question<input id="question" value="Who owns the API?"></label>
+      <div class="two-up"><label>Person<select id="person"><option value="person-a">person-a</option><option value="person-c">person-c (no match)</option></select></label><label>Project<select id="project"><option value="project-a">project-a</option></select></label></div>
+      <button id="ask">Evaluate context</button>
+      <pre id="answer" class="result">Run an evaluation to see the admission decision.</pre>
+    </section>
+
+    <section class="panel">
+      <div class="eyebrow">AUDIT</div><h2>What the system observed</h2>
+      <p class="muted">Every reconciliation decision and context answer becomes a readable event.</p>
+      <div id="audit" class="audit-list"><div class="empty">No events yet.</div></div>
+    </section>
+  </main>
+  <footer>Independent portfolio project · synthetic records only · <a href="/api/health">health</a></footer>
+  <script src="/app.js"></script>
+</body>
+</html>

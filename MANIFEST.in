@@ -1,0 +1,16 @@
+include AGENTS.md
+include CHANGELOG.md
+include CONTRIBUTING.md
+include DEMO.md
+include LICENSE
+include PROOF.md
+include README.md
+include RELEASE-CHECKLIST.md
+include RELEASES.md
+include SECURITY.md
+recursive-include docs *
+recursive-include fixtures *
+recursive-include static *
+recursive-include tests *
+global-exclude __pycache__
+global-exclude *.py[cod]

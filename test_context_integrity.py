@@ -1,0 +1,51 @@
+import unittest
+from datetime import datetime, timezone
+
+from context_integrity import Record, answer
+
+
+NOW = datetime(2026, 10, 1, 12, tzinfo=timezone.utc)
+
+
+def record(**overrides):
+    data = {
+        "record_id": "r-1",
+        "source": "calendar",
+        "person_id": "person-a",
+        "project_id": "project-a",
+        "observed_at": "2026-10-01T10:00:00Z",
+        "window_start": "2026-10-01T09:00:00Z",
+        "window_end": "2026-10-01T11:00:00Z",
+        "text": "The launch review is scheduled for Friday and the API owner is Priya.",
+    }
+    data.update(overrides)
+    return Record(**data)
+
+
+class ContextIntegrityTests(unittest.TestCase):
+    def test_supported_answer_contains_provenance(self):
+        result = answer([record()], "Who owns the API?", person_id="person-a", project_id="project-a", now=NOW)
+        self.assertEqual(result["status"], "supported")
+        self.assertEqual(result["citations"][0]["record_id"], "r-1")
+        self.assertEqual(result["citations"][0]["window"]["start"], "2026-10-01T09:00:00Z")
+
+    def test_wrong_person_fails_closed(self):
+        result = answer([record()], "Who owns the API?", person_id="person-b", project_id="project-a", now=NOW)
+        self.assertEqual(result, {"status": "unavailable", "reason": "no_matching_scope", "citations": []})
+
+    def test_stale_context_is_visible(self):
+        result = answer([record(observed_at="2026-09-20T10:00:00Z")], "Who owns the API?", person_id="person-a", project_id="project-a", now=NOW)
+        self.assertEqual(result["status"], "stale")
+        self.assertEqual(result["reason"], "no_fresh_records")
+
+    def test_fresh_but_irrelevant_context_is_uncertain(self):
+        result = answer([record(text="The team lunch is tomorrow.")], "What is the API owner?", person_id="person-a", project_id="project-a", now=NOW)
+        self.assertEqual(result["status"], "uncertain")
+
+    def test_unavailable_source_is_not_used(self):
+        result = answer([record(status="unavailable")], "Who owns the API?", person_id="person-a", project_id="project-a", now=NOW)
+        self.assertEqual(result["status"], "stale")
+
+
+if __name__ == "__main__":
+    unittest.main()
