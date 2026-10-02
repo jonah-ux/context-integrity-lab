@@ -11,6 +11,9 @@ from pathlib import Path
 from typing import Any
 
 
+CONTEXT_SCHEMA = "context-integrity/v1"
+
+
 def parse_time(value: str) -> datetime:
     return datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(timezone.utc)
 
@@ -35,6 +38,44 @@ class Record:
 STOPWORDS = {"a", "an", "and", "are", "for", "is", "of", "the", "to", "what", "who"}
 
 
+def _result(
+    status: str,
+    *,
+    person_id: str,
+    project_id: str,
+    reason: str | None = None,
+    answer_text: str | None = None,
+    citations: list[dict[str, Any]] | None = None,
+    stale_record_ids: list[str] | None = None,
+    unknowns: list[str] | None = None,
+) -> dict[str, Any]:
+    """Build one explicit, loss-aware context admission envelope."""
+
+    citation_list = citations or []
+    result: dict[str, Any] = {
+        "schema": CONTEXT_SCHEMA,
+        "status": status,
+        "ok": status == "supported",
+        "observed": True,
+        "partial": False,
+        "timed_out": False,
+        "person_id": person_id,
+        "project_id": project_id,
+        "citations": citation_list,
+        "citation_count": len(citation_list),
+        "unknowns": sorted(set(unknowns or [])),
+    }
+    if reason is not None:
+        result["reason"] = reason
+    if answer_text is not None:
+        result["answer"] = answer_text
+    if stale_record_ids:
+        result["stale_record_ids"] = stale_record_ids
+    if status == "supported":
+        result["scope"] = {"person_id": person_id, "project_id": project_id}
+    return result
+
+
 def terms(question: str) -> set[str]:
     return {
         word.casefold().strip(".,?!:;")
@@ -56,7 +97,13 @@ def answer(
 
     scope = [r for r in records if r.person_id == person_id and r.project_id == project_id]
     if not scope:
-        return {"status": "unavailable", "reason": "no_matching_scope", "citations": []}
+        return _result(
+            "unavailable",
+            person_id=person_id,
+            project_id=project_id,
+            reason="no_matching_scope",
+            unknowns=["no_matching_scope"],
+        )
 
     fresh: list[Record] = []
     stale: list[str] = []
@@ -70,12 +117,14 @@ def answer(
             stale.append(record.record_id)
 
     if not fresh:
-        return {
-            "status": "stale",
-            "reason": "no_fresh_records",
-            "stale_record_ids": stale,
-            "citations": [],
-        }
+        return _result(
+            "stale",
+            person_id=person_id,
+            project_id=project_id,
+            reason="no_fresh_records",
+            stale_record_ids=stale,
+            unknowns=["no_fresh_records"],
+        )
 
     query_terms = terms(question)
     ranked = sorted(
@@ -85,11 +134,13 @@ def answer(
     )
     selected = [record for record in ranked if query_terms & terms(record.text)]
     if not selected:
-        return {
-            "status": "uncertain",
-            "reason": "fresh_records_do_not_support_question",
-            "citations": [],
-        }
+        return _result(
+            "uncertain",
+            person_id=person_id,
+            project_id=project_id,
+            reason="fresh_records_do_not_support_question",
+            unknowns=["fresh_records_do_not_support_question"],
+        )
 
     citations = [
         {
@@ -100,12 +151,13 @@ def answer(
         }
         for record in selected[:3]
     ]
-    return {
-        "status": "supported",
-        "answer": " ".join(record.text for record in selected[:3]),
-        "citations": citations,
-        "scope": {"person_id": person_id, "project_id": project_id},
-    }
+    return _result(
+        "supported",
+        person_id=person_id,
+        project_id=project_id,
+        answer_text=" ".join(record.text for record in selected[:3]),
+        citations=citations,
+    )
 
 
 def main() -> int:

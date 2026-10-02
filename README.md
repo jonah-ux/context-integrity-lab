@@ -50,7 +50,10 @@ The command prints one JSON result to stdout. A supported answer exits `0`.
 Expected refusal states such as a missing scope or stale evidence exit `1` so
 callers cannot mistake a refusal for an answer. Invalid command input uses the
 standard argparse usage exit. The result includes the status, reason, answer,
-and citations when the admission boundary supports the response.
+and citations when the admission boundary supports the response. Every result
+uses the versioned `context-integrity/v1` envelope with explicit `ok`,
+`observed`, `partial`, `timed_out`, scope, citation-count, and `unknowns`
+fields.
 
 Try the scope refusal without changing the fixture:
 
@@ -61,6 +64,10 @@ context-integrity fixtures/records.json "Who owns the API?" \
 
 The included [reviewer walkthrough](DEMO.md) covers supported, scope, and
 freshness cases and explains what each result does and does not prove.
+
+The [protocol contract](docs/contracts/context-integrity-v1.md) shows how to
+hand the JSON result to Agent Proof without copying raw answer text across the
+evidence boundary.
 
 ## Browser console
 
