@@ -114,6 +114,13 @@ and make refusal states visible.
   without posting sensitive details publicly.
 - [CHANGELOG.md](CHANGELOG.md) records user-facing changes.
 
+## Public surface audit
+
+Run `python scripts/audit_public_surface.py --json` from a clean checkout. The receipt checks
+dependency and license declarations, release-workflow provenance markers, and high-signal secret
+patterns across tracked text files. Pass `--dist-dir dist` to compare wheel and sdist bytes with
+`SHA256SUMS`; missing artifacts remain `unavailable`.
+
 ## Portfolio boundary
 
 This project is evidence of implementation and design judgment. It does not
