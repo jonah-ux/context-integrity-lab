@@ -8,8 +8,8 @@ deterministic, and easy to inspect from a clean checkout.
 ```bash
 python3 -m venv .venv
 . .venv/bin/activate
-python -m pip install -e .
-python -m unittest discover -s tests -v
+python3 -m pip install -e .
+python3 -m unittest discover -s tests -v
 ```
 
 The project uses the Python standard library at runtime. Do not add a provider,

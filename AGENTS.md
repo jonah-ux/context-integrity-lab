@@ -7,8 +7,8 @@ focused test suite. They must keep the project standalone.
 ## Safe commands
 
 ```bash
-python -m py_compile context_integrity.py web_app.py
-python -m unittest discover -s tests -v
+python3 -m py_compile context_integrity.py web_app.py
+python3 -m unittest discover -s tests -v
 python context_integrity.py fixtures/records.json "Who owns the API?" \
   --person person-a --project project-a --now 2026-10-01T12:00:00Z
 git diff --check
