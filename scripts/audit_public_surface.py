@@ -10,8 +10,33 @@ from pathlib import Path
 import platform
 import re
 import subprocess
-import tomllib
 from typing import Any
+
+try:
+    import tomllib
+except ModuleNotFoundError:  # Python 3.10 clean-matrix compatibility.
+    class _TomlFallback:
+        @staticmethod
+        def loads(text: str) -> dict[str, Any]:
+            import re
+
+            def value(pattern: str) -> str | None:
+                match = re.search(pattern, text, re.MULTILINE)
+                return match.group(1) if match else None
+
+            build_block = re.search(r"\[build-system\](.*?)(?=^\[|\Z)", text, re.MULTILINE | re.DOTALL)
+            build_requires = re.findall(r'"([^"\\]*(?:\\.[^"\\]*)*)"', build_block.group(1)) if build_block else []
+            return {
+                "build-system": {"requires": build_requires},
+                "project": {
+                    "name": value(r'^name\s*=\s*"([^"]+)"'),
+                    "version": value(r'^version\s*=\s*"([^"]+)"'),
+                    "license": value(r'^license\s*=\s*"([^"]+)"'),
+                    "dependencies": [],
+                },
+            }
+
+    tomllib = _TomlFallback()
 
 
 ROOT = Path(__file__).resolve().parents[1]
