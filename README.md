@@ -30,7 +30,7 @@ git clone --branch v0.2.0 --depth 1 https://github.com/jonah-ux/context-integrit
 cd context-integrity-lab
 python3 -m venv .venv
 . .venv/bin/activate
-python -m pip install -e .
+python3 -m pip install -e .
 ```
 
 The package has no runtime dependencies and supports Python 3.10 through the
@@ -96,8 +96,8 @@ credential.
 Run the focused checks from a fresh checkout:
 
 ```bash
-python -m py_compile context_integrity.py web_app.py
-python -m unittest discover -s tests -v
+python3 -m py_compile context_integrity.py web_app.py
+python3 -m unittest discover -s tests -v
 git diff --check
 ```
 
@@ -116,7 +116,7 @@ and make refusal states visible.
 
 ## Public surface audit
 
-Run `python scripts/audit_public_surface.py --json` from a clean checkout. The receipt checks
+Run `python3 scripts/audit_public_surface.py --json` from a clean checkout. The receipt checks
 dependency and license declarations, release-workflow provenance markers, and high-signal secret
 patterns across tracked text files. Pass `--dist-dir dist` to compare wheel and sdist bytes with
 `SHA256SUMS`; missing artifacts remain `unavailable`.

@@ -14,7 +14,7 @@ external adoption.
 4. Build a wheel and source distribution outside the checkout:
 
    ```bash
-   python -m build --sdist --wheel --outdir /tmp/context-integrity-lab-dist
+   python3 -m build --sdist --wheel --outdir /tmp/context-integrity-lab-dist
    ```
 
 5. Record the SHA-256 of each artifact and install each one in a fresh virtual
