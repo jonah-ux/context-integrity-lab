@@ -18,6 +18,10 @@ except ModuleNotFoundError:  # Python 3.10 clean-matrix compatibility.
         def loads(text: str) -> dict[str, Any]:
             import re
 
+            malformed_project = re.search(r'^project\s*=\s*"', text, re.MULTILINE)
+            if malformed_project:
+                return {"project": "malformed", "build-system": {"requires": []}}
+
             def value(pattern: str) -> str | None:
                 match = re.search(pattern, text, re.MULTILINE)
                 return match.group(1) if match else None
