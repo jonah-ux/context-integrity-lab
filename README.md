@@ -49,11 +49,12 @@ context-integrity fixtures/records.json "Who owns the API?" \
 The command prints one JSON result to stdout. A supported answer exits `0`.
 Expected refusal states such as a missing scope or stale evidence exit `1` so
 callers cannot mistake a refusal for an answer. Invalid command input uses the
-standard argparse usage exit. The result includes the status, reason, answer,
-and citations when the admission boundary supports the response. Every result
-uses the versioned `context-integrity/v1` envelope with explicit `ok`,
-`observed`, `partial`, `timed_out`, scope, citation-count, and `unknowns`
-fields.
+standard argparse usage exit. Malformed JSON, missing record fields, and bad
+timestamps instead return a `context-integrity/error/v1` JSON envelope and exit
+`2`; the envelope includes a stable error code, `observed=false`, and no
+citations. Valid admission results use the versioned `context-integrity/v1`
+envelope with explicit `ok`, `observed`, `partial`, `timed_out`, scope,
+citation-count, and `unknowns` fields.
 
 Try the scope refusal without changing the fixture:
 

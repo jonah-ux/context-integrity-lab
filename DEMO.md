@@ -35,6 +35,14 @@ The included records are outside the one-hour budget, so the result is
 `stale`. Explain that the system keeps the evidence state visible instead of
 silently presenting old notes as current context.
 
+## Input refusal
+
+Malformed JSON, missing record fields, and invalid timestamps fail closed with
+the machine-readable `context-integrity/error/v1` envelope and exit status 2.
+The envelope reports a stable `error.code`, keeps `observed` false, and never
+prints a traceback. A record observed after the requested `--now` is rejected
+as stale with reason `future_evidence`, rather than being treated as fresh.
+
 ## Design question
 
 If asked what would come next, describe authenticated source adapters, explicit

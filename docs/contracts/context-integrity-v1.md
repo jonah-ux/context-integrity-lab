@@ -41,6 +41,41 @@ Refusal states set `ok` to false and include a machine-readable `reason` and
 downstream evidence adapters decide which bounded fields may cross a trust
 boundary.
 
+Future observations are a distinct stale refusal. When every available record
+is newer than the requested `now`, the result uses `reason: "future_evidence"`
+and lists those IDs in `future_record_ids`. Mixed stale and future records keep
+the established `reason: "no_fresh_records"` while exposing
+`future_evidence` in `unknowns`.
+
+## CLI input errors
+
+The command-line loader has a separate stable envelope for malformed JSON,
+missing record fields, invalid timestamps, and other rejected input:
+
+```json
+{
+  "schema": "context-integrity/error/v1",
+  "status": "error",
+  "ok": false,
+  "observed": false,
+  "partial": false,
+  "timed_out": false,
+  "person_id": "person-a",
+  "project_id": "project-a",
+  "citations": [],
+  "citation_count": 0,
+  "unknowns": ["records_json_invalid"],
+  "reason": "records_json_invalid",
+  "error": {
+    "code": "records_json_invalid",
+    "message": "records file is not valid JSON"
+  }
+}
+```
+
+These input refusals exit `2`; they are not evidence that the requested
+context exists or does not exist.
+
 ## Agent Proof handoff
 
 The public [Agent Proof](https://github.com/jonah-ux/agent-proof) release
