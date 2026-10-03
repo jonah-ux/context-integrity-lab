@@ -69,6 +69,10 @@ The [protocol contract](docs/contracts/context-integrity-v1.md) shows how to
 hand the JSON result to Agent Proof without copying raw answer text across the
 evidence boundary.
 
+## Admission explorer
+
+Open the [standalone admission explorer](docs/admission-explorer.html) for a visual tour of the supported, stale, and out-of-scope states. It is a single dependency-free HTML file with synthetic browser state; it does not call the local server or any sibling repository.
+
 ## Browser console
 
 ```bash
