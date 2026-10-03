@@ -26,7 +26,7 @@ transcripts, or customer data.
 ## Fresh-clone install
 
 ```bash
-git clone https://github.com/jonah-ux/context-integrity-lab.git
+git clone --branch v0.2.0 --depth 1 https://github.com/jonah-ux/context-integrity-lab.git
 cd context-integrity-lab
 python3 -m venv .venv
 . .venv/bin/activate
